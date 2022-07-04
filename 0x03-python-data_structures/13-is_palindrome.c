@@ -1,22 +1,45 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <Python.h>
+#include "lists.h"
 /**
- * print_python_list_info - prints some basic info about Python lists.
- * @p: python object
+ * is_palindrome - function that check for palindrom
+ * @head:list
+ *Return: 0 or 1
  */
-void print_python_list_info(PyObject *p)
+int is_palindrome(listint_t **head)
 {
-	size_t s, x = 0;
-	PyObject *obj;
+	const listint_t *current;
+	int len;
+	int i, j;
+	int arr[10000];
 
-	s = PyList_Size(p);
-	printf("[*] Size of the Python List = %zu\n", s);
-	printf("[*] Allocated = %zu\n", ((PyListObject *)p)->allocated);
-	while (x < s)
+	if (*head == NULL)
+		return (1);
+	current = *head;
+	len = 0;
+	while (current != NULL)
 	{
-		obj = PyList_GET_ITEM(p, x);
-		printf("Element %zu: %s\n", x, Py_TYPE(obj)->tp_name);
-		x++;
+		current = current->next;
+		len++;
 	}
+	if (len == 1)
+		return (1);
+
+	current = *head;
+	i = 0;
+	while (current != NULL)
+	{
+		arr[i] = current->n;
+		i++;
+		current = current->next;
+	}
+	j = 0;
+	i--;
+	len--;
+	while (i >= (len / 2))
+	{
+		if (arr[i] != arr[j])
+			return (0);
+		i--;
+		j++;
+	}
+	return (1);
 }
