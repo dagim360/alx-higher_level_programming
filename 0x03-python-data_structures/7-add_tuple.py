@@ -1,17 +1,11 @@
 #!/usr/bin/python3
-
-
 def add_tuple(tuple_a=(), tuple_b=()):
-    result = []
-    for i in range(2):
-        sum_temp = 0
-        try:
-            sum_temp += tuple_a[i]
-        except:
-            pass
-        try:
-            sum_temp += tuple_b[i]
-        except:
-            pass
-        result.append(sum_temp)
-    return tuple(result)
+    y = ()
+    for x in (tuple_a, tuple_b):
+        if len(x) == 0:
+            x = (0, 0)
+        elif len(x) == 1:
+            x = (x[0], 0)
+        if y == ():
+            y = x
+    return x[0] + y[0], x[1] + y[1]
